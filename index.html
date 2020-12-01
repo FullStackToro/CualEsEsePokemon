@@ -21,10 +21,10 @@
 
             $('img').click(function() {
                 var id_tag = $(this).attr('id');
-                console.log(id_tag)
+                // console.log(id_tag)
                 $.get("https://pokeapi.co/api/v2/pokemon/" + id_tag + "/", function(res) {
                     $('.pokemon_name').html("<h2>" + res.name + "</h2>")
-                    $('.pokemon_screen').html("<img src='" + res.sprites.front_default + "' alt=''>")
+                    $('.pokemon_screen').html("<img class='imgpkm' src='" + res.sprites.other.dream_world.front_default + "' alt=''>")      //img alternativa
                     var type = '<p>';
                     for (let i = 0; i < res.types.length; i++) {
                         if (i == 0) {
@@ -37,7 +37,7 @@
                     $('.type').html(type)
                     $('.height').html("<p>" + res.height + "</p>")
                     $('.weight').html("<p>" + res.weight + "</p>")
-                    console.log(res);
+                    // console.log(res);
                 }, "json");
             });
 
@@ -61,12 +61,17 @@
             height: 750px;
             overflow: scroll;
         }
+        .imgpkm {                  /* ajusta el tamaño */
+            max-width: 100%;
+        }
         
         .pokemon_screen {
-            height: 100px;
+            height: 160px;
             background-color: white;
             width: 300px;
             margin-bottom: 20px;
+            display: flex;
+            vertical-align: middle;
         }
         
         .div {
@@ -95,6 +100,12 @@
             border: 3px ridge #95080C;
             margin: 10px;
             border-radius: 5px;
+        }
+            .listado:active {                           /* marca un borde al hacer click */
+                border: 2px solid rgb(219, 129, 129);
+            }
+            .listado:hover {                            /* marca una sombra al pasar el mouse encima */
+            box-shadow: 0px 0px 15px rgb(49, 58, 45);
         }
     </style>
 
