@@ -24,7 +24,7 @@
                 console.log(id_tag)
                 $.get("https://pokeapi.co/api/v2/pokemon/" + id_tag + "/", function(res) {
                     $('.pokemon_name').html("<h2>" + res.name + "</h2>")
-                    $('.pokemon_screen').html("<img src='" + res.sprites.front_default + "' alt=''>")
+                    $('.pokemon_screen').html("<img id='other_view' src='" + res.sprites.other["official-artwork"].front_default + "' alt=''>")
                     var type = '<p>';
                     for (let i = 0; i < res.types.length; i++) {
                         if (i == 0) {
@@ -50,6 +50,11 @@
             padding: 0px;
         }
         
+        #other_view {
+            max-width: 100px;
+            /* max-height: 100px; */
+        }
+        
         h4 {
             height: 40px;
             background-color: #3E0002;
@@ -59,14 +64,16 @@
         
         .img_pokemon {
             height: 750px;
-            overflow: scroll;
+            /* overflow: scroll; */
         }
         
         .pokemon_screen {
-            height: 100px;
+            height: 150px;
             background-color: white;
             width: 300px;
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
         }
         
         .div {
@@ -84,6 +91,8 @@
             background: radial-gradient( #B80B0F, #680003);
             border: 5px ridge #95080C;
             border-right: 0px;
+            position: fixed;
+            height: 100%;
         }
         
         .pokemon_name {
@@ -96,13 +105,21 @@
             margin: 10px;
             border-radius: 5px;
         }
+        
+        .contenedor {
+            width: 100%;
+        }
+        
+        .img_pokemon :hover {
+            box-shadow: 0px 0px 10px black;
+        }
     </style>
 
 </head>
 
 <body>
     <div id="contenido" class=" container-flex">
-        <div class="row">
+        <div class="row text-center contenedor">
             <div class="col-2 text-center p-3 pokedex">
                 <div class="pokemon_name"></div>
                 <div class="pokemon_screen col-10"></div>
@@ -113,10 +130,11 @@
                 <h4 class="col-10">Weigth</h4>
                 <div class="div weight col-10"></div>
             </div>
+            <div class="col-2 text-center p-3">
+            </div>
             <div class="col-9 text-center img_pokemon p-3">
                 <h1>¿Cual es ese Pokemon?</h1>
                 <p>Haz click en ese pokemon que tanto te gusta para ver su nombre, tipo y algunas de sus caracteristicas al costado izquierdo.</p>
-
             </div>
         </div>
     </div>
